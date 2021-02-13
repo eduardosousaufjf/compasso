@@ -7,7 +7,8 @@
       class="header"
       elevated>
       <q-toolbar
-        class="menu">
+        @click="$router.push({path:'/'})"
+        class="menu cursor-pointer">
 
         <q-toolbar-title>
           <q-icon

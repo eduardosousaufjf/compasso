@@ -1,6 +1,11 @@
 <template>
   <q-page class="row content-start">
     <div class="col-10 col-md-12 q-mx-auto">
+
+      <q-breadcrumbs class="q-mt-md text-primary">
+        <q-breadcrumbs-el label="Início" icon="home"></q-breadcrumbs-el>
+      </q-breadcrumbs>
+
       <q-card
         class="main_card">
         <q-card-section>

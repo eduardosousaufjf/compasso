@@ -64,6 +64,7 @@ export class AxiosAPI implements AxiosAPIInterface {
 
 export const ENDPOINTS = {
   USER: {
-    SEARCH: '/search/users'
+    SEARCH: '/search/users',
+    REPOS: (username: string): string => `users/${username}/repos`
   }
 };

@@ -4,6 +4,7 @@ import { ModuleOptions } from 'vuex-module-decorators/dist/types/moduleoptions';
 import { GlobalAxios } from 'app/config/GlobalConfig';
 import { UserInterface } from 'src/model/User.class';
 import { ENDPOINTS } from 'app/utils/AxiosAPI';
+import { RepoInterface } from 'src/model/Repo.class';
 
 @Module({
   dynamic: true,
@@ -48,7 +49,9 @@ export default class UserStoreModule extends VuexModule {
     updated_at: ''
   };
 
-  searchedUsersInternal: UserInterface[] = [];
+  private searchedUsersInternal: UserInterface[] = [];
+
+  private userReposInternal: RepoInterface[] = [];
 
   /**
    * Retorna uma promessa de lista de usuários Github
@@ -103,6 +106,32 @@ export default class UserStoreModule extends VuexModule {
   }
 
   /**
+   * Busca os repositórios de um usuário Github
+   * @param userLogin String contendo login válido de um usuario github
+   */
+  @Action({ rawError: true })
+  public fetchUserRepos(userLogin: string): Promise<RepoInterface[]> {
+    return new Promise<RepoInterface[]>((accept, reject) => {
+      GlobalAxios.getData(ENDPOINTS.USER.REPOS(userLogin) + '?&per_page=5')
+        .then((response: RepoInterface[]) => {
+          this.context.commit('fetchUserReposMutation', response);
+          accept(this.userRepos);
+        })
+        .catch(error => reject(error));
+    });
+  }
+
+  /**
+   * Altera o estado da Store 'userReposInternal'
+   * @param payload
+   * @private
+   */
+  @Mutation
+  private fetchUserReposMutation(payload: RepoInterface[]) {
+    this.userReposInternal = payload;
+  }
+
+  /**
    * Retorna o usuário atualmente selecionado
    */
   get currentUser(): UserInterface {
@@ -114,5 +143,12 @@ export default class UserStoreModule extends VuexModule {
    */
   get searchedUsers(): UserInterface[] {
     return this.searchedUsersInternal;
+  }
+
+  /**
+   * Retorna os repositórios de um usuário
+   */
+  get userRepos(): RepoInterface[] {
+    return this.userReposInternal;
   }
 }

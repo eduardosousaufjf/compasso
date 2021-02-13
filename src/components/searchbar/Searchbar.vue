@@ -78,9 +78,8 @@ export default class Searchbar extends Vue {
   }
 
   onInputBlur() {
-    setTimeout(() => this.showUserList = false, 100);
+    setTimeout(() => this.showUserList = false, 200);
   }
-
 
   get userList(): UserInterface[] {
     return this.usersStore.searchedUsers;
