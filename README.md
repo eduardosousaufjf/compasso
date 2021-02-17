@@ -21,3 +21,18 @@ quasar dev
 Este projeto tem como dependências para executar o
 
     node.js na versão 14
+    npm
+
+
+###Dos testes
+
+Este projeto tem a possibilidade de executar testes
+
+```bash
+npm run test:unit
+```
+
+###Package manager
+
+Para executar este projeto foram definidos comandos utilizado o npm como gerenciador de pacote.
+É possível também utilizar o yarn.
