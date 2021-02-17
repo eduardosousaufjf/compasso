@@ -1,17 +1,16 @@
 <template>
-  <div>
+  <div class="col-12">
     <q-card
-      class="list"
       @click="onUserClick(currentUser)"
     >
-      <q-card-section>
+      <q-item clickable>
         <div class="row">
-          <q-avatar>
+          <q-avatar class="q-mr-md">
             <img :src="currentUser.avatar_url" :alt="currentUser.login" />
           </q-avatar>
-          <p class="q-mx-auto q-my-auto">{{ currentUser.login }}</p>
+          <p class="q-mr-auto q-my-auto">{{ currentUser.login }}</p>
         </div>
-      </q-card-section>
+      </q-item>
     </q-card>
   </div>
 </template>
@@ -35,12 +34,3 @@ export default class UserSearchListViewComponent extends Vue {
 
 }
 </script>
-
-<style lang="scss" scoped>
-.list {
-  width: 280px;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-</style>

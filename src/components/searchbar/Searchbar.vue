@@ -1,5 +1,5 @@
 <template>
-  <div class="searchbar">
+  <div id="searchbar">
     <q-input
       v-model="searchText"
       debounce="500"
@@ -22,12 +22,10 @@
       <q-item
         v-for="user in userList"
         :key="user.id"
-        class="searchbar__item"
       >
         <user-view
           @clicked="onUserClicked"
           :current-user="user"
-          class="user_view"
         />
       </q-item>
     </q-list>
@@ -88,23 +86,12 @@ export default class Searchbar extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.searchbar {
-
-}
 
 .searchbar__list {
-  background-color: white;
+  background-color: rgba(126,162,227, 0.1);
   border: 1px solid #c8c8c8;
   border-radius: 5px;
   position: absolute;
   z-index: 10000;
-}
-
-.searchbar__item {
-  padding: 5px 0;
-}
-
-.user_view {
-  margin: 0 auto;
 }
 </style>

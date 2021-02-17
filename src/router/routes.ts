@@ -6,7 +6,8 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: '/repo/:username', component: () => import('pages/Repos.vue') }
+      { path: '/:username/repo', component: () => import('pages/Repos.vue') },
+      { path: '/:username/starred', component: () => import('pages/Starreds.vue') }
     ]
   },
 

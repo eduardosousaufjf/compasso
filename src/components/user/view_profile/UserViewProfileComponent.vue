@@ -11,7 +11,7 @@
       </q-card-section>
       <q-separator />
       <q-item
-        :to="'/repo/' + currentUser.login"
+        :to="currentUser.login + '/repo/'"
         clickable>
         <q-icon
           name="fab fa-github"
@@ -22,7 +22,7 @@
       </q-item>
       <q-item
         clickable
-
+        :to="currentUser.login + '/starred/'"
       >
         <q-icon
           name="star"

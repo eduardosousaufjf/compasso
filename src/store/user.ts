@@ -53,6 +53,8 @@ export default class UserStoreModule extends VuexModule {
 
   private userReposInternal: RepoInterface[] = [];
 
+  private userStarredInternal: RepoInterface[] = [];
+
   /**
    * Retorna uma promessa de lista de usuários Github
    * @param userID ID do usuário Github
@@ -75,7 +77,7 @@ export default class UserStoreModule extends VuexModule {
    * @param payload
    */
   @Mutation
-  fetchUserMutation(payload: UserInterface) {
+  public fetchUserMutation(payload: UserInterface) {
     this.currentUserInternal = payload;
   }
 
@@ -98,10 +100,9 @@ export default class UserStoreModule extends VuexModule {
   /**
    * Altera o estado da Store 'searchedUsersInternal'
    * @param payload
-   * @private
    */
   @Mutation
-  private searchUserMutation(payload: UserInterface[]) {
+  public searchUserMutation(payload: UserInterface[]) {
     this.searchedUsersInternal = payload;
   }
 
@@ -124,11 +125,77 @@ export default class UserStoreModule extends VuexModule {
   /**
    * Altera o estado da Store 'userReposInternal'
    * @param payload
+   */
+  @Mutation
+  public fetchUserReposMutation(payload: RepoInterface[]) {
+    this.userReposInternal = payload;
+  }
+
+
+  /**
+   * Busca os repositórios de um usuário Github
+   * @param userLogin String contendo login válido de um usuario github
+   */
+  @Action({ rawError: true })
+  public fetchUserStarred(userLogin: string): Promise<RepoInterface[]> {
+    return new Promise<RepoInterface[]>((accept, reject) => {
+      GlobalAxios.getData(ENDPOINTS.USER.STARRED(userLogin) + '?&per_page=5')
+        .then((response: RepoInterface[]) => {
+          this.context.commit('fetchUserStarredMutation', response);
+          accept(this.userRepos);
+        })
+        .catch(error => reject(error));
+    });
+  }
+
+  /**
+   * Altera o estado da Store 'userStarredInternal'
+   * @param payload
    * @private
    */
   @Mutation
-  private fetchUserReposMutation(payload: RepoInterface[]) {
-    this.userReposInternal = payload;
+  public fetchUserStarredMutation(payload: RepoInterface[]) {
+    this.userStarredInternal = payload;
+  }
+
+  @Mutation
+  public resetCurrentUserMutation() {
+    this.currentUserInternal = {
+      login: '',
+      id: 0,
+      node_id: '',
+      avatar_url: '',
+      gravatar_id: '',
+      url: '',
+      followers_url: '',
+      following_url: '',
+      gists_url: '',
+      starred_url: '',
+      subscriptions_url: '',
+      organizations_url: '',
+      repos_url: '',
+      events_url: '',
+      received_events_url: '',
+      type: '',
+      site_admin: false,
+      name: '',
+      company: '',
+      blog: '',
+      location: '',
+      email: '',
+      hireable: false,
+      bio: '',
+      twitter_username: '',
+      public_repos: 0,
+      public_gists: 0,
+      followers: 0,
+      following: 0,
+      created_at: '',
+      updated_at: ''
+    };
+    this.userReposInternal = [];
+    this.userStarredInternal = [];
+    this.searchedUsersInternal = [];
   }
 
   /**
@@ -151,4 +218,12 @@ export default class UserStoreModule extends VuexModule {
   get userRepos(): RepoInterface[] {
     return this.userReposInternal;
   }
+
+  /**
+   * Retorna os repositorios favoritos de um usuario
+   */
+  get userStarred(): RepoInterface[] {
+    return this.userStarredInternal;
+  }
+
 }

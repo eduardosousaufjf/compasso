@@ -1,26 +1,23 @@
-# Teste Compasso (compasso)
+# Desafio Técnico Compasso
 
-Desafio técnico da Compasso UOL
+Este repositório possui conteúdo do desafio técnico da Comprasso.
 
-## Install the dependencies
+## Primeiros passos
+
+Navegue até a pasta desde projeto e execute a instalação das dependências via bash:
+
 ```bash
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Ao instalar as dependências é possível executar o projeto com:
 ```bash
 quasar dev
 ```
 
-### Lint the files
-```bash
-npm run lint
-```
 
-### Build the app for production
-```bash
-quasar build
-```
+### Das dependências
 
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+Este projeto tem como dependências para executar o
+
+    node.js na versão 14

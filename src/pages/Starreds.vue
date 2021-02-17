@@ -4,19 +4,18 @@
 
       <q-breadcrumbs class="q-mt-md text-primary">
         <q-breadcrumbs-el label="Início" icon="home" to="/"></q-breadcrumbs-el>
-        <q-breadcrumbs-el label="Repositórios" icon="fab fa-github"></q-breadcrumbs-el>
+        <q-breadcrumbs-el label="Favoritos" icon="grade"></q-breadcrumbs-el>
       </q-breadcrumbs>
 
       <q-card class="repo__card">
         <q-card-section>
-          <b class="text-h5">Repositórios de {{ userLogin }}</b>
+          <b class="text-h5">Repositórios favoritos de {{ userLogin }}</b>
         </q-card-section>
         <q-card-section>
-          Navegue pelos repositórios deste usuário.
+          Navegue pelos repositórios favoritos deste usuário.
         </q-card-section>
       </q-card>
     </div>
-
 
     <q-card class="col-10 col-md-12 q-mx-auto" v-if="loading">
       <q-item>
@@ -37,12 +36,11 @@
       </q-item>
     </q-card>
 
-
     <q-card
       v-if="!loading && repos.length === 0"
       class="col-10 col-md-12 q-mx-auto">
       <q-card-section>
-        {{ userLogin }} não possui repositórios públicos.
+        {{ userLogin }} não possui repositórios favoritos.
       </q-card-section>
     </q-card>
 
@@ -118,35 +116,36 @@ import { RepoInterface } from 'src/model/Repo.class';
 @Component({
   components: {}
 })
-export default class Repos extends Vue {
-
+export default class Starreds extends Vue {
   storeUser = getModule(UserStoreModule);
 
   userLogin = '';
 
   loading = false;
 
-  navigate(url: Location): void {
-    window.location = url;
+  navigate(url: string): void {
+    window.location.href = url;
   }
 
   mounted() {
     this.loading = true;
-    this.userLogin = this.$route.params['username'];
-    this.storeUser.fetchUserRepos(this.userLogin)
-      .catch(() => this.$q.notify({
-        message: 'Problema ao recuperar os dados de repositório.',
-        type: 'negative'
-      }))
-      .finally(() => this.loading = false
+    this.userLogin = this.$route.params.username;
+    this.storeUser.fetchUserStarred(this.userLogin)
+      .catch(() => {
+        this.$q.notify({
+          message: 'Problema ao recuperar os dados de repositório.',
+          type: 'negative'
+        });
+      })
+      .finally(() => {
+          this.loading = false;
+        }
       );
   }
 
   get repos(): RepoInterface[] {
-    return this.storeUser.userRepos;
+    return this.storeUser.userStarred;
   }
-
-
 };
 </script>
 
