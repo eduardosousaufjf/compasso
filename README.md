@@ -24,7 +24,7 @@ Este projeto tem como dependências para executar o
     npm
 
 
-###Dos testes
+### Dos testes
 
 Este projeto tem a possibilidade de executar testes
 
@@ -32,7 +32,7 @@ Este projeto tem a possibilidade de executar testes
 npm run test:unit
 ```
 
-###Package manager
+### Package manager
 
 Para executar este projeto foram definidos comandos utilizado o npm como gerenciador de pacote.
 É possível também utilizar o yarn.
