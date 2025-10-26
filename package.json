@@ -9,7 +9,7 @@
     "test:unit": "jest --updateSnapshot"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.16",
+    "@quasar/extras": "^1.17.0",
     "axios": "^0.21.1",
     "core-js": "^3.8.3",
     "quasar": "^1.15.3",
