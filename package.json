@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.9.16",
-    "axios": "^0.21.1",
+    "axios": "^0.30.2",
     "core-js": "^3.8.3",
     "quasar": "^1.15.3",
     "vue-class-component": "^7.2.6",
